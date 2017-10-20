@@ -147,11 +147,13 @@ def generateUserReadVec():
     for user_id in user_id_list:
         for line in open(os.path.join(INPUT_USER_DIR,user_id)):
             item = line.strip()
-            item_list = item.split(" ")
-            post_id = item_list[0].decode("utf-8")
+            item_list = item.split("\t")
+            if len(item_list) != 2:
+		continue
+	    post_id = item_list[0].decode("utf-8")
             post_title = item_list[1].decode("utf-8")
             post_vec = get_sentence_vec(post_title)
-            #print post_title
+            print post_title
             #print post_vec
             isExists = os.path.exists(TMP_USER_DIR)
             if not isExists:
@@ -267,9 +269,9 @@ def cleanTmpAndRes():
 def main():
     log.write("-------------------  easyRecommendFramework  START  --------------------------")
     cleanTmpAndRes()
-    log.write("-------------------  generatePostVec  START         --------------------------")
-    generatePostVec()
-    log.write("-------------------  generatePostVec  END           --------------------------")
+    #log.write("-------------------  generatePostVec  START         --------------------------")
+    #generatePostVec()
+    #log.write("-------------------  generatePostVec  END           --------------------------")
     log.write("-------------------  generateUserVec  START         --------------------------")
     generateUserReadVec()
     log.write("-------------------  generateUserVec  END           --------------------------")
