@@ -269,9 +269,9 @@ def cleanTmpAndRes():
 def main():
     log.write("-------------------  easyRecommendFramework  START  --------------------------")
     cleanTmpAndRes()
-    #log.write("-------------------  generatePostVec  START         --------------------------")
-    #generatePostVec()
-    #log.write("-------------------  generatePostVec  END           --------------------------")
+    log.write("-------------------  generatePostVec  START         --------------------------")
+    generatePostVec()
+    log.write("-------------------  generatePostVec  END           --------------------------")
     log.write("-------------------  generateUserVec  START         --------------------------")
     generateUserReadVec()
     log.write("-------------------  generateUserVec  END           --------------------------")
