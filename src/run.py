@@ -54,7 +54,8 @@ def find_cixiangliang( str ):
     if OPEN_GREP==True:
         cmd_str = 'grep ' + str + ' -m1 '+ os.path.join(WORD2VEC_DIR,WORD2VEC_NAME)
         (status, output) = commands.getstatusoutput(cmd_str)
-        if status == 0:
+        #print cmd_str
+	if status == 0:
             findList = output.split(" ")
             if len(findList) == 52:
                 del(findList[len(findList)-1])
@@ -97,6 +98,8 @@ def get_sentence_vec(temp):
         vec = find_cixiangliang(item)
         vec_list.append(vec)
     print vec_list
+    if len(vec_list) == 0:
+	return None
     l = vec_list
     a = list(map(lambda *l: sum(l), *l))
     #print a
@@ -132,7 +135,9 @@ def generatePostVec():
         post_id=item_list[0].decode("utf-8")
         post_title=item_list[1].decode("utf-8")
         post_vec=get_sentence_vec(post_title)
-        #print post_title
+        if post_vec == None:
+	    continue
+	#print post_title
         #print post_vec
         f=file(GENERATE_POSTVEC_DIR, 'a ')
         f.write(post_id+"\t"+JSONEncoder().encode(post_vec)+'\n')
@@ -153,7 +158,9 @@ def generateUserReadVec():
 	    post_id = item_list[0].decode("utf-8")
             post_title = item_list[1].decode("utf-8")
             post_vec = get_sentence_vec(post_title)
-            print post_title
+            if post_vec == None:
+		continue
+	    print post_title
             #print post_vec
             isExists = os.path.exists(TMP_USER_DIR)
             if not isExists:
